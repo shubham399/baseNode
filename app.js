@@ -2,8 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+var BookModel = require('./models/Book');
+
 var app = express();
 var port = 8080;
+var db = 'mongodb://localhost/dbName';
 
 app.get('/', (req, res) => {
     res.send("Express server is up and running!!");
@@ -17,6 +20,14 @@ var jsonParser = bodyParser.json();
 
 app.use(jsonParser);
 
-app.listen(port, () => {
-    console.log("app listening on port " + port);
-});
+mongoose.connect(db).then(dbConnectSuccess, dbConnectErr);
+
+dbConnectSuccess = () => {
+  app.listen(port, () => {
+        console.log("app listening on port " + port);
+    });
+}
+
+dbConnectErr = () => {
+  console.log("error connecting to db");
+}
