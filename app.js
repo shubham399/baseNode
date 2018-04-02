@@ -20,8 +20,6 @@ var jsonParser = bodyParser.json();
 
 app.use(jsonParser);
 
-mongoose.connect(db).then(dbConnectSuccess, dbConnectErr);
-
 dbConnectSuccess = () => {
   app.listen(port, () => {
         console.log("app listening on port " + port);
@@ -31,3 +29,5 @@ dbConnectSuccess = () => {
 dbConnectErr = () => {
   console.log("error connecting to db");
 }
+
+mongoose.connect(db).then(dbConnectSuccess, dbConnectErr);
