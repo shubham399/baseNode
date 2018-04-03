@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var BookModel = require('./models/Book');
+var routes = require('./routes/mainRoute');
 
 var app = express();
 var port = 8080;
@@ -19,6 +19,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 
 app.use(jsonParser);
+
+app.use('/api', routes);
 
 dbConnectSuccess = () => {
   app.listen(port, () => {
